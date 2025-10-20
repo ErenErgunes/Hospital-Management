@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İletişim - Hayat Hastanesi</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f7f6; color: #333; }
+        .container { width: 90%; max-width: 900px; /* Form için biraz daha daralttık */ margin: 0 auto; }
+        .header { background-color: #ffffff; padding: 15px 0; border-bottom: 1px solid #e0e0e0; display: flex; justify-content: space-between; align-items: center; }
+        .header .logo { font-size: 24px; font-weight: bold; color: #005a9c; }
+        .header nav a { margin-left: 20px; text-decoration: none; color: #555; font-weight: 500; }
+        .page-title { text-align: center; padding: 50px 0; font-size: 36px; color: #333; }
+        .contact-info { background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); line-height: 1.8; }
+        .footer { background-color: #343a40; color: white; text-align: center; padding: 20px 0; margin-top: 60px; }
+
+        /* --- YENİ FORM STİLLERİ BURADA --- */
+        .contact-info form p {
+            margin-bottom: 20px;
+        }
+        .contact-info form label {
+            display: block; /* Etiketi kutunun üstüne alır */
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        .contact-info form input[type="text"],
+        .contact-info form input[type="email"],
+        .contact-info form textarea {
+            width: 98%; /* Kutunun genişliği (padding için küçük bir pay bıraktık) */
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            font-family: inherit; /* Sayfa fontunu kullansın */
+        }
+        .contact-info form textarea {
+            height: 150px; /* Mesaj kutusu yüksekliği */
+            resize: vertical; /* Sadece dikeyde büyütülebilsin */
+        }
+        
+        .contact-info form button {
+            background-color: #007bff; 
+            color: white; 
+            padding: 12px 20px; 
+            border: none; 
+            border-radius: 5px; 
+            cursor: pointer; 
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        .contact-info form button:hover {
+            background-color: #0056b3; /* Üzerine gelince koyulaşsın */
+        }
+
+        /* --- Başarı Mesajı Stili --- */
+        .success-message {
+            background-color: #d4edda; 
+            color: #155724; 
+            padding: 15px; 
+            border-radius: 5px; 
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="container">
+            <div class="logo">Hayat Hastanesi</div>
+            <nav>
+                <a href="/">Ana Sayfa</a>
+                <a href="/doktorlar/">Doktorlarımız</a>
+                <a href="/bolumlerimiz/">Bölümlerimiz</a>
+                <a href="/iletisim/">İletişim</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <h1 class="page-title">Bize Ulaşın</h1>
+        
+        <div class="contact-info">
+            
+            {% if success_message %}
+                <div class="success-message">
+                    {{ success_message }}
+                </div>
+            {% endif %}
+    
+            <form method="POST">
+                {% csrf_token %}
+                
+                {{ form.as_p }}
+                
+                <button type="submit">Gönder</button>
+            </form>
+        </div>
+    
+        <div class="contact-info" style="margin-top: 30px;">
+            <p><strong>Adres:</strong> Sağlık Caddesi, No: 123, Şifa Mahallesi, İstanbul</p>
+            <p><strong>Telefon:</strong> (0212) 123 45 67</p>
+            <p><strong>E-posta:</strong> bilgi@hayathastanesi.com</p>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Hayat Hastanesi. Tüm Hakları Saklıdır.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

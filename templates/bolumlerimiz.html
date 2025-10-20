@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bölümlerimiz - Hayat Hastanesi</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f7f6; color: #333; }
+        .container { width: 90%; max-width: 1200px; margin: 0 auto; }
+        .header { background-color: #ffffff; padding: 15px 0; border-bottom: 1px solid #e0e0e0; display: flex; justify-content: space-between; align-items: center; }
+        .header .logo { font-size: 24px; font-weight: bold; color: #005a9c; }
+        .header nav a { margin-left: 20px; text-decoration: none; color: #555; font-weight: 500; }
+        .page-title { text-align: center; padding: 50px 0; font-size: 36px; color: #333; }
+        
+        /* --- YENİ KART STİLLERİ BURADA --- */
+        .department-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3'lü ızgara düzeni */
+            gap: 30px; /* Kartlar arası boşluk */
+        }
+        
+        .department-card {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .department-card:hover {
+            transform: translateY(-5px); /* Kartın üzerine gelince hafifçe yükselme efekti */
+            box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+        }
+        
+        .department-card h3 {
+            color: #005a9c;
+            margin-top: 0;
+            font-size: 22px;
+        }
+
+        .department-card p {
+            color: #555;
+            line-height: 1.6;
+        }
+        /* --- STİLLER BİTTİ --- */
+
+        .footer { background-color: #343a40; color: white; text-align: center; padding: 20px 0; margin-top: 60px; }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="container">
+            <div class="logo">Hayat Hastanesi</div>
+            <nav>
+                <a href="/">Ana Sayfa</a>
+                <a href="/doktorlar/">Doktorlarımız</a>
+                <a href="/bolumlerimiz/">Bölümlerimiz</a>
+                <a href="/iletisim/">İletişim</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <h1 class="page-title">Tıbbi Bölümlerimiz</h1>
+        
+        <div class="department-grid">
+            
+            <div class="department-card">
+                <h3>Kardiyoloji</h3>
+                <p>Kalp ve dolaşım sistemi hastalıklarının tanı ve tedavisi ile ilgilenen uzmanlık dalıdır.</p>
+            </div>
+            
+            <div class="department-card">
+                <h3>Nöroloji</h3>
+                <p>Beyin, omurilik ve sinir sistemi bozukluklarının tanı ve tedavisine odaklanır.</p>
+            </div>
+            
+            <div class="department-card">
+                <h3>Ortopedi</h3>
+                <p>Kas-iskelet sistemi, kemik, eklem ve bağ dokusu hastalıkları ve yaralanmaları ile ilgilenir.</p>
+            </div>
+            
+            <div class="department-card">
+                <h3>Göz Hastalıkları</h3>
+                <p>Görme bozuklukları, göz enfeksiyonları ve cerrahi müdahaleler üzerine uzmandır.</p>
+            </div>
+
+            <div class="department-card">
+                <h3>Dahiliye</h3>
+                <p>İç hastalıkları; geniş bir yelpazedeki erişkin sağlık sorunlarının ilk tanı merkezidir.</p>
+            </div>
+
+            <div class="department-card">
+                <h3>Genel Cerrahi</h3>
+                <p>Ameliyat gerektiren hastalıkların tedavisi ile ilgilenen geniş bir cerrahi disiplinidir.</p>
+            </div>
+
+            <div class="department-card">
+                <h3>Pediatri</h3>
+                <p>Bebek, çocuk ve ergenlerin sağlık sorunları, büyüme ve gelişmeleri ile ilgilenir.</p>
+            </div>
+
+            <div class="department-card">
+                <h3>Dermatoloji</h3>
+                <p>Cilt, saç ve tırnak hastalıklarının tanı ve tedavisi üzerine uzmanlaşmış tıp dalıdır.</p>
+            </div>
+
+            <div class="department-card">
+                <h3>Radyoloji</h3>
+                <p>Görüntüleme teknolojilerini (MR, BT, X-ray) kullanarak hastalıkların tanısını koyar.</p>
+            </div>
+
+        </div> </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Hayat Hastanesi. Tüm Hakları Saklıdır.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

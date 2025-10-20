@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Doktorlarımız - Hayat Hastanesi</title>
+    <title>{{ doktor.isim_soyisim }} - Hayat Hastanesi</title>
     <style>
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f7f6; color: #333; }
-        .container { width: 90%; max-width: 1200px; margin: 0 auto; }
+        .container { width: 90%; max-width: 900px; margin: 0 auto; }
         .header { background-color: #ffffff; padding: 15px 0; border-bottom: 1px solid #e0e0e0; display: flex; justify-content: space-between; align-items: center; }
         .header .logo { font-size: 24px; font-weight: bold; color: #005a9c; }
         .header nav a { margin-left: 20px; text-decoration: none; color: #555; font-weight: 500; }
-        .page-title { text-align: center; padding: 50px 0; font-size: 36px; color: #333; }
-        .doctors-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
-        .doctor-card { background-color: #ffffff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        .doctor-card h3 { color: #005a9c; margin-top: 0; font-size: 22px; }
-        .doctor-card .specialty { font-weight: bold; color: #007bff; margin-bottom: 15px; }
+        .doctor-detail-card { background: #fff; padding: 40px; margin-top: 50px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .doctor-detail-card h1 { color: #005a9c; margin-top: 0; font-size: 36px; }
+        .doctor-detail-card .specialty { font-weight: bold; color: #007bff; font-size: 20px; margin-bottom: 25px; }
+        .doctor-detail-card .bio { line-height: 1.8; font-size: 16px; }
+        .back-link { display: inline-block; margin-top: 25px; color: #007bff; text-decoration: none; }
         .footer { background-color: #343a40; color: white; text-align: center; padding: 20px 0; margin-top: 60px; }
     </style>
 </head>
@@ -33,19 +33,16 @@
     </header>
 
     <main class="container">
-        <h1 class="page-title">Uzman Doktor Kadromuz</h1>
-        
-        <div class="doctors-grid">
-            {% for doktor in doktorlar %}
-                <div class="doctor-card">
-                    <h3>
-                        <a href="/doktorlar/{{ doktor.id }}/">{{ doktor.isim_soyisim }}</a>
-                    </h3>
-                    <p class="specialty">{{ doktor.uzmanlik_alani }}</p>
-                    <p>{{ doktor.biyografi }}</p>
-                </div>
-            {% endfor %}
-            </div>
+        <div class="doctor-detail-card">
+            {% if doktor.fotograf %}
+                <img src="{{ doktor.fotograf.url }}" alt="{{ doktor.isim_soyisim }}" style="width: 350px; border-radius: 50px;">
+            {% endif %}
+            <h1>{{ doktor.isim_soyisim }}</h1>
+            <p class="specialty">{{ doktor.uzmanlik_alani }}</p>
+            <p class="bio">{{ doktor.biyografi }}</p>
+            
+            <a href="/doktorlar/" class="back-link">&larr; Tüm Doktorlara Geri Dön</a>
+        </div>
     </main>
 
     <footer class="footer">
