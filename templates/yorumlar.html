@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hasta Yorumları</title>
+    <style>
+        body { font-family: sans-serif; background-color: #f4f7f6; color: #333; margin: 0; }
+        .container { width: 90%; max-width: 800px; margin: 0 auto; padding-bottom: 80px; }
+        .header { background: #fff; padding: 15px 0; border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;}
+        .header nav a { margin-left: 20px; text-decoration: none; color: #555; }
+        
+        .review-card { background: #fff; padding: 20px; border-radius: 8px; margin-bottom: 20px; border-left: 5px solid #007bff; box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: relative; }
+        .stars { color: #ffc107; font-size: 18px; }
+        .author { font-weight: bold; display: block; margin-top: 10px; color: #555; }
+        
+        /* BUTONLAR */
+        .btn { padding: 5px 10px; border-radius: 4px; text-decoration: none; font-size: 12px; color: white; margin-left: 5px;}
+        .btn-delete { background-color: #dc3545; }
+        .btn-edit { background-color: #ffc107; color: #333; }
+        .actions { position: absolute; top: 20px; right: 20px; }
+
+        /* YÜZEN EKLEME BUTONU (Alt Kısım) */
+        .floating-add-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: #28a745;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 8px;
+            margin-top: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .floating-add-btn:hover { background-color: #218838; }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h3>Hayat Hastanesi</h3>
+            <nav>
+                <a href="/">Ana Sayfa</a>
+                <a href="/doktorlar/">Doktorlarımız</a>
+                <a href="/bolumlerimiz/">Bölümlerimiz</a>
+                <a href="/iletisim/">İletişim</a>
+                <a href="/yorumlar/">Yorumlar</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <h1 style="text-align:center;">Hasta Yorumları</h1>
+
+        {% for yorum in yorumlar %}
+            <div class="review-card">
+                {% if user.is_staff %}
+                <div class="actions">
+                    <a href="{% url 'yorum-duzenle' yorum.id %}" class="btn btn-edit">DÜZENLE</a>
+                    <a href="{% url 'yorum-sil' yorum.id %}" class="btn btn-delete" onclick="return confirm('Silinsin mi?');">SİL</a>
+                </div>
+                {% endif %}
+
+                <div class="stars">
+                    {{ yorum.puan }} Puan 
+                    </div>
+                <p>"{{ yorum.yorum }}"</p>
+                {% if yorum.dosya %}
+                    <a href="{{ yorum.dosya.url }}" target="_blank">📎 Dosyayı Gör</a>
+                {% endif %}
+                <span class="author">- {{ yorum.ad_soyad }}</span>
+            </div>
+        {% empty %}
+            <p style="text-align:center;">Henüz yorum yok.</p>
+        {% endfor %}
+
+        <a href="{% url 'yorum-ekle' %}" class="floating-add-btn">
+            + Yorum Yapmak İçin Tıklayın
+        </a>
+    </main>
+</body>
+</html>

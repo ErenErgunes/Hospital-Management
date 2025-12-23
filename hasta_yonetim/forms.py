@@ -1,7 +1,7 @@
 # hasta_yonetim/forms.py
 
 from django import forms
-from .models import RandevuTalebi
+from .models import RandevuTalebi, HastaYorumu
 
 class IletisimForm(forms.Form):
     ad_soyad = forms.CharField(label="Adınız Soyadınız", max_length=100)
@@ -31,4 +31,19 @@ class RandevuTalepForm(forms.ModelForm):
             'telefon': 'Telefon Numaranız',
             'doktor': 'Doktor Seçiniz',
             'mesaj': 'Ek Notlarınız (Opsiyonel)',
+
+        }
+class HastaYorumuForm(forms.ModelForm):
+    class Meta:
+        model = HastaYorumu
+        # 'dosya' alanını listeye ekledik
+        fields = ['ad_soyad', 'puan', 'yorum', 'dosya'] 
+        labels = {
+            'ad_soyad': 'Adınız Soyadınız',
+            'puan': 'Memnuniyet Puanınız',
+            'yorum': 'Görüşleriniz',
+            'dosya': 'Varsa Dosya/Fotoğraf Ekleyin (İsteğe bağlı)',
+        }
+        widgets = {
+            'yorum': forms.Textarea(attrs={'rows': 4}),
         }

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ baslik }}</title>
+    <style>
+        body { font-family: sans-serif; background-color: #f4f7f6; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .form-box { background: white; padding: 40px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 100%; max-width: 500px; }
+        input, select, textarea { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box;}
+        button { width: 100%; padding: 12px; background-color: #28a745; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; }
+        button:hover { background-color: #218838; }
+        .back-link { display: block; text-align: center; margin-top: 15px; text-decoration: none; color: #555; }
+    </style>
+</head>
+<body>
+    <div class="form-box">
+        <h2 style="text-align:center;">{{ baslik }}</h2>
+        
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <label>Adınız Soyadınız:</label>
+            {{ form.ad_soyad }}
+
+            <label>Puanınız:</label>
+            {{ form.puan }}
+
+            <label>Görüşleriniz:</label>
+            {{ form.yorum }}
+
+            <label>Dosya (İsteğe bağlı):</label>
+            {{ form.dosya }}
+
+            <button type="submit">Kaydet</button>
+        </form>
+        
+        <a href="{% url 'hasta-yorumlari' %}" class="back-link">← Yorumlara Geri Dön</a>
+    </div>
+</body>
+</html>

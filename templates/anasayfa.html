@@ -45,11 +45,23 @@
 
         /* --- Hero (Karşılama Alanı) --- */
         .hero {
-            background-color: #007bff; /* Canlı mavi */
-            color: white;
-            padding: 80px 0;
+    /* Arka plan resmini ekliyoruz */
+            background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1586773860418-d37222d8fce3?auto=format&fit=crop&w=1920&q=80');
+
+    /* Resmin tüm alanı kaplamasını sağlıyoruz */
+            background-size: cover;
+
+    /* Resmin ortalanmasını sağlıyoruz */
+            background-position: center center;
+
+            color: white; /* Yazı rengi beyaz kalacak */
+            padding: 100px 0; /* Alanı biraz daha büyütüyoruz */
             text-align: center;
-        }
+
+    /* Yazıya 3D bir gölge ekleyerek okunurluğu artırıyoruz */
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+    }
+        
 
         .hero h1 {
             font-size: 48px;
@@ -128,6 +140,7 @@
                 <a href="/doktorlar/">Doktorlarımız</a>
                 <a href="/bolumlerimiz/">Bölümlerimiz</a>
                 <a href="/iletisim/">İletişim</a>
+                <a href="/yorumlar/">Yorumlar</a>
             </nav>
         </div>
     </header>

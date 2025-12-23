@@ -1,8 +1,9 @@
 # hasta_yonetim/views.py
 
-from django.shortcuts import render, get_object_or_404 
-from .models import Doktor, GelenMesaj, RandevuTalebi # RandevuTalebi modelini de ekleyelim
-from .forms import IletisimForm, RandevuTalepForm # RandevuTalepForm'u buraya da import ediyoruz
+from django.shortcuts import render, get_object_or_404, redirect
+from .models import Doktor, GelenMesaj, RandevuTalebi, HastaYorumu
+# AŞAĞIDAKİ SATIRA DİKKAT: HastaYorumuForm'u buraya eklemelisin!
+from .forms import IletisimForm, RandevuTalepForm, HastaYorumuForm
 
 # 1. ANA SAYFA FONKSİYONU (Hata büyük ihtimalle bu eksik)
 def ana_sayfa(request):
@@ -86,3 +87,53 @@ def randevu_al(request):
         form = RandevuTalepForm() # Boş bir form oluştur
         context = {'form': form}
         return render(request, 'randevu_al.html', context)
+
+def hasta_yorumlari(request):
+    # Sadece yayında olanları göster
+    yorumlar = HastaYorumu.objects.filter(yayinda=True).order_by('-olusturulma_tarihi')
+    context = {
+        'yorumlar': yorumlar
+    }
+    return render(request, 'yorumlar.html', context)
+
+# 2. YENİ YORUM EKLEME SAYFASI (Create)
+def yorum_ekle(request):
+    if request.method == 'POST':
+        form = HastaYorumuForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            # Kaydettikten sonra listeye geri dön
+            return redirect('hasta-yorumlari')
+    else:
+        form = HastaYorumuForm()
+    
+    # Formu göstermek için 'yorum_form.html' şablonunu kullanacağız
+    return render(request, 'yorum_form.html', {'form': form, 'baslik': 'Siz de Görüşünüzü Paylaşın'})
+
+# 3. YORUM DÜZENLEME SAYFASI (Update)
+def yorum_duzenle(request, id):
+    # Düzenlenecek yorumu veritabanından bul
+    yorum = get_object_or_404(HastaYorumu, id=id)
+    
+    # Güvenlik: Sadece adminler düzenleyebilsin (İstersen bunu kaldırabilirsin)
+    if not request.user.is_staff:
+        return redirect('hasta-yorumlari')
+
+    if request.method == 'POST':
+        # instance=yorum diyerek "Bu formu şu yorumun verileriyle güncelle" diyoruz
+        form = HastaYorumuForm(request.POST, request.FILES, instance=yorum)
+        if form.is_valid():
+            form.save()
+            return redirect('hasta-yorumlari')
+    else:
+        # Sayfa ilk açıldığında formu yorumun eski verileriyle doldur
+        form = HastaYorumuForm(instance=yorum)
+
+    return render(request, 'yorum_form.html', {'form': form, 'baslik': 'Yorumu Düzenle'})
+
+# SİLME FONKSİYONU (Zaten vardı, kalsın)
+def yorum_sil(request, yorum_id):
+    yorum = get_object_or_404(HastaYorumu, id=yorum_id)
+    if request.user.is_staff:
+        yorum.delete()
+    return redirect('hasta-yorumlari')

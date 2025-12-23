@@ -40,3 +40,23 @@ class RandevuTalebi(models.Model):
 
     def __str__(self):
         return f"{self.ad_soyad} - {self.doktor.isim_soyisim} için ({self.istedigi_tarih})"
+class HastaYorumu(models.Model):
+    ad_soyad = models.CharField(max_length=100)
+    PUAN_SECENEKLERI = [
+        (1, '★☆☆☆☆ (1 Yıldız)'),
+        (2, '★★☆☆☆ (2 Yıldız)'),
+        (3, '★★★☆☆ (3 Yıldız)'),
+        (4, '★★★★☆ (4 Yıldız)'),
+        (5, '★★★★★ (5 Yıldız)'),
+    ]
+    puan = models.IntegerField(choices=PUAN_SECENEKLERI, default=5)
+    yorum = models.TextField()
+    
+    dosya = models.FileField(upload_to='yorum_dosyalari/', blank=True, null=True)
+    
+    yayinda = models.BooleanField(default=True) 
+    
+    olusturulma_tarihi = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.ad_soyad} - {self.puan} Yıldız"
