@@ -23,19 +23,12 @@ class RandevuTalebi(models.Model):
     email = models.EmailField(max_length=100)
     telefon = models.CharField(max_length=20)
     
-    # İLİŞKİSEL ALAN (ForeignKey):
-    # Bu alan, Doktor modelimizle bir ilişki kurar.
-    # Bir doktor silinirse (models.CASCADE), ilgili randevu talebi de silinir.
     doktor = models.ForeignKey(Doktor, on_delete=models.CASCADE)
     
-    # TARİH ALANI:
-    # Bu, Django'ya bunun bir tarih olduğunu söyler.
     istedigi_tarih = models.DateField()
     
-    # Ek notlar için
     mesaj = models.TextField(blank=True, null=True) 
     
-    # Talep tarihi
     olusturulma_tarihi = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

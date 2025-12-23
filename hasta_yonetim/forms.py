@@ -1,5 +1,3 @@
-# hasta_yonetim/forms.py
-
 from django import forms
 from .models import RandevuTalebi, HastaYorumu
 
@@ -10,21 +8,17 @@ class IletisimForm(forms.Form):
 
 class RandevuTalepForm(forms.ModelForm):
     
-    # TARİH ALANI İÇİN ÖZEL BİR DOKUNUŞ:
-    # Django'ya bu alan için HTML5'in tarih seçme aracını (takvim) 
-    # kullanmasını söylüyoruz.
     istedigi_tarih = forms.DateField(
         label="İstediğiniz Randevu Tarihi",
         widget=forms.DateInput(attrs={'type': 'date'})
     )
 
     class Meta:
-        model = RandevuTalebi  # Hangi modelden form oluşturulacak?
+        model = RandevuTalebi
         
-        # Modeldeki hangi alanlar formda gösterilsin?
+
         fields = ['ad_soyad', 'email', 'telefon', 'doktor', 'istedigi_tarih', 'mesaj']
         
-        # Alanların etiketlerini (görünen isimlerini) güzelleştirelim
         labels = {
             'ad_soyad': 'Adınız Soyadınız',
             'email': 'E-posta Adresiniz',
@@ -36,7 +30,6 @@ class RandevuTalepForm(forms.ModelForm):
 class HastaYorumuForm(forms.ModelForm):
     class Meta:
         model = HastaYorumu
-        # 'dosya' alanını listeye ekledik
         fields = ['ad_soyad', 'puan', 'yorum', 'dosya'] 
         labels = {
             'ad_soyad': 'Adınız Soyadınız',
